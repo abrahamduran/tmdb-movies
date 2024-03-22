@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TMDBApiKey</key>
+	<string></string>
+	<key>TMDBBackdropPath</key>
+	<string>https://image.tmdb.org/t/p/w1280</string>
+	<key>TMDBPosterPath</key>
+	<string>https://image.tmdb.org/t/p/w500</string>
+	<key>TMDBProfilePath</key>
+	<string>https://image.tmdb.org/t/p/h632</string>
+</dict>
+</plist>
