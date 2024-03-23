@@ -46,7 +46,14 @@ struct MovieDetailsView: View {
     }
 
     private struct DetailsView: View {
-        private let overviewLayout = [GridItem(.adaptive(minimum: 100), alignment: .leading), GridItem(.flexible(), alignment: .leading)]
+        @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+        private var overviewLayout: [GridItem] {
+            if horizontalSizeClass == .compact {
+                return .init(repeating: GridItem(.flexible(), alignment: .leading), count: 2)
+            }
+
+            return .init(repeating: GridItem(.flexible(), alignment: .leading), count: 4)
+        }
         let details: MovieDetailsPresentation
         let parentSize: CGSize
 
@@ -65,7 +72,6 @@ struct MovieDetailsView: View {
                 recommendations
             }
         }
-        private let rows = [GridItem(.flexible(maximum: 150))]
 
         private var title: some View {
             HStack {
