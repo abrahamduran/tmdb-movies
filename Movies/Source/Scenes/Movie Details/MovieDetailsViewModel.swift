@@ -9,9 +9,33 @@ import Foundation
 
 @MainActor
 final class MovieDetailsViewModel: ObservableObject {
-    @Published private(set) var content: ContentState<MovieDetails> = .loading
+    @Published private(set) var content: ContentState<MovieDetailsPresentation> = .loading
     @Published private(set) var error: AppError? = nil
     @Published var showErrorAlert = false
+
+    private lazy var runtimeFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute]
+        formatter.unitsStyle = .brief
+        return formatter
+    }()
+    private lazy var currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 0
+        return formatter
+    }()
+    private lazy var ratingFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 1
+        return formatter
+    }()
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
 
     private var repository: MoviesRepository
     private var offlineCache: MoviesRepository
@@ -60,7 +84,7 @@ final class MovieDetailsViewModel: ObservableObject {
         }
 
         guard let details else { return }
-        content = .content(details)
+        content = .content(.init(from: details, dateFormatter: dateFormatter, runtimeFormatter: runtimeFormatter, currencyFormatter: currencyFormatter, ratingFormatter: ratingFormatter))
     }
 
     private func handleError(_ error: AppError) {

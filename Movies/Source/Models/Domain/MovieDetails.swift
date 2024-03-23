@@ -15,10 +15,10 @@ struct MovieDetails: Identifiable, Codable, Equatable {
     let budget: Int?
     let revenue: Int?
     let overview: String
-    let posterPath: String
-    let backdropPath: String
+    let posterPath: String?
+    let backdropPath: String?
     let voteAverage: Double
     let cast: [CastMember]
-    let genres: [Genre]
+    let genres: [String]
     let recommendations: [Movie]
 }

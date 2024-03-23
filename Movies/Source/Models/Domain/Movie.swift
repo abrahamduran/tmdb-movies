@@ -10,5 +10,5 @@ import Foundation
 struct Movie: Identifiable, Codable, Equatable {
     let id: Int
     let title: String
-    let posterPath: String
+    let posterPath: String?
 }

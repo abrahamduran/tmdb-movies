@@ -15,8 +15,8 @@ struct MovieDetailsResponse: Decodable {
     let budget: Int?
     let revenue: Int?
     let overview: String
-    let posterPath: String
-    let backdropPath: String
+    let posterPath: String?
+    let backdropPath: String?
     let voteAverage: Double
     let genres: [Genre]
     let credits: Credits
@@ -24,6 +24,11 @@ struct MovieDetailsResponse: Decodable {
 
     struct Credits: Decodable {
         let cast: [CastMember]
+    }
+
+    struct Genre: Decodable {
+        let id: Int
+        let name: String
     }
 }
 
@@ -36,19 +41,13 @@ extension MovieDetails {
         self.budget = response.budget
         self.revenue = response.revenue
         self.overview = response.overview
-        self.posterPath = posterBasePath + response.posterPath
-        self.backdropPath = backdropBasePath + response.backdropPath
+        self.posterPath = response.posterPath == nil ? nil : posterBasePath + response.posterPath!
+        self.backdropPath = response.backdropPath == nil ? nil : backdropBasePath + response.backdropPath!
         self.voteAverage = response.voteAverage
-        self.genres = response.genres
+        self.genres = response.genres.map(\.name)
         self.recommendations = response.recommendations.results
-            .map { .init(id: $0.id, title: $0.title, posterPath: posterBasePath + $0.posterPath) }
+            .map { .init(id: $0.id, title: $0.title, posterPath: $0.posterPath == nil ? nil : posterBasePath + $0.posterPath!) }
         self.cast = response.credits.cast
-            .map {
-                var profilePath: String?
-                if let path = $0.profilePath {
-                    profilePath = profileBasePath + path
-                }
-                return .init(id: $0.id, name: $0.name, character: $0.character, profilePath: profilePath)
-            }
+            .map { .init(id: $0.id, name: $0.name, character: $0.character, profilePath: $0.profilePath == nil ? nil : profileBasePath + $0.profilePath!) }
     }
 }

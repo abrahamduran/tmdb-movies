@@ -13,20 +13,7 @@ struct CastMemberCell: View {
 
     var body: some View {
         HStack {
-            if let profilePath = castMember.profilePath {
-                KFImage(URL(string: profilePath))
-                    .placeholder {
-                        placeholder
-                    }
-                    .cancelOnDisappear(true)
-                    .fade(duration: 0.5)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 64, height: 64)
-                    .clipShape(Circle())
-            } else {
-                placeholder
-            }
+            profilePic
 
             VStack(alignment: .leading) {
                 Text(castMember.name)
@@ -35,6 +22,24 @@ struct CastMemberCell: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
+        }
+    }
+
+    @ViewBuilder
+    private var profilePic: some View {
+        if let profilePath = castMember.profilePath {
+            KFImage(URL(string: profilePath))
+                .placeholder {
+                    placeholder
+                }
+                .cancelOnDisappear(true)
+                .fade(duration: 0.5)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 64, height: 64)
+                .clipShape(Circle())
+        } else {
+            placeholder
         }
     }
 
@@ -48,5 +53,8 @@ struct CastMemberCell: View {
 }
 
 #Preview {
-    CastMemberCell(castMember: .mock())
+    VStack {
+        CastMemberCell(castMember: .mock())
+        CastMemberCell(castMember: .mock(profilePath: nil))
+    }
 }

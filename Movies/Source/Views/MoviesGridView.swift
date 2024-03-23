@@ -29,6 +29,10 @@ struct MoviesGridView: View {
 
 #Preview {
     MoviesGridView(
-        movies: [.mock(), .mock(id: 1239251, posterPath: "/yRZfiG1QpRkBc7fAmxfcR7Md5EC.jpg")]
+        movies: [
+            .mock(),
+            .mock(id: 2, posterPath: "https://image.tmdb.org/t/p/w500/6rwk7nlvq8nj7dwHGprorg57leX.jpg"),
+            .mock(id: 3, posterPath: nil), .mock(id: 4, posterPath: nil)
+        ]
     ) { _ in }
 }

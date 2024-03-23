@@ -46,7 +46,7 @@ struct MovieDetailsView: View {
 
     private struct DetailsView: View {
         private let overviewLayout = [GridItem(.adaptive(minimum: 100), alignment: .leading), GridItem(.flexible(), alignment: .leading)]
-        let details: MovieDetails
+        let details: MovieDetailsPresentation
         let parentSize: CGSize
 
         var body: some View {
@@ -71,7 +71,7 @@ struct MovieDetailsView: View {
                 Text(details.title)
                     .font(.title3.bold())
 
-                Text("(\(details.releaseDate.prefix(4)))")
+                Text("(\(details.releaseYear))")
                     .font(.title3)
                     .foregroundStyle(.secondary)
             }
@@ -79,7 +79,7 @@ struct MovieDetailsView: View {
         }
 
         private var rating: some View {
-            Text("Rating: \(details.voteAverage, specifier: "%.1f")/10")
+            Text(details.rating)
                 .padding(.horizontal)
         }
 
@@ -100,24 +100,24 @@ struct MovieDetailsView: View {
                     VStack(alignment: .leading) {
                         Text("Duration")
                             .font(.headline)
-                        Text("\(details.runtime ?? 0) min")
+                        Text(details.runtime)
                     }
                     VStack(alignment: .leading) {
                         Text("Budget")
                             .font(.headline)
-                        Text("$\(details.budget ?? 0)")
+                        Text(details.budget)
                     }
                     VStack(alignment: .leading) {
                         Text("Revenue")
                             .font(.headline)
-                        Text("$\(details.revenue ?? 0)")
+                        Text(details.revenue)
                     }
                 }
 
                 VStack(alignment: .leading) {
                     Text("Genres")
                         .font(.headline)
-                    Text(details.genres.map { $0.name }.joined(separator: ", "))
+                    Text(details.genres)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }

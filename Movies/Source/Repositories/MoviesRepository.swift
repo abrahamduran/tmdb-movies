@@ -15,27 +15,27 @@ protocol MoviesRepository {
 final class TMDBMoviesRepository: MoviesRepository {
     private let api: APIProvider
     private let cache: CacheProvider
-    private var posterBasePath: String {
+    private lazy var posterBasePath: String = {
         guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBPosterPath") as? String else {
             assertionFailure("TMDBPosterPath not found in Info.plist")
             return "https://image.tmdb.org/t/p/w500"
         }
         return basePath
-    }
-    private var profileBasePath: String {
+    }()
+    private lazy var profileBasePath: String = {
         guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBProfilePath") as? String else {
             assertionFailure("TMDBProfilePath not found in Info.plist")
             return "https://image.tmdb.org/t/p/h632"
         }
         return basePath
-    }
-    private var backdropBasePath: String {
+    }()
+    private lazy var backdropBasePath: String = {
         guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBBackdropPath") as? String else {
             assertionFailure("TMDBBackdropPath not found in Info.plist")
             return "https://image.tmdb.org/t/p/w1280"
         }
         return basePath
-    }
+    }()
     private var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -56,7 +56,7 @@ final class TMDBMoviesRepository: MoviesRepository {
         let parameters = [URLQueryItem(name: "page", value: String(page))]
         let data = try await api.fetch(from: url, parameters: parameters)
         let response = try decoder.decode(MoviesPageResponse.self, from: data)
-        let result = response.results.map { Movie(id: $0.id, title: $0.title, posterPath: posterBasePath + $0.posterPath) }
+        let result = response.results.map { Movie(id: $0.id, title: $0.title, posterPath: $0.posterPath == nil ? nil : posterBasePath + $0.posterPath!) }
         cacheResponse(result, forKey: .popularMovies(page: page))
 
         return result

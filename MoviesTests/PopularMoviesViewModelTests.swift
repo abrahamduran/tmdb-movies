@@ -244,5 +244,6 @@ final class PopularMoviesViewModelTests: XCTestCase {
         await viewModel.fetchContent()
 
         await fulfillment(of: [expectation])
+        content.cancel()
     }
 }
