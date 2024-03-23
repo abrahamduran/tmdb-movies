@@ -161,6 +161,7 @@
 				1716126A2BACACE00050561D /* Resources */,
 				1716126B2BACACEE0050561D /* Source */,
 				171612402BACAC7F0050561D /* MoviesApp.swift */,
+				17247A872BACDFB800C7C448 /* Info.plist */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -199,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				171612442BACAC800050561D /* Assets.xcassets */,
-				17247A872BACDFB800C7C448 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
