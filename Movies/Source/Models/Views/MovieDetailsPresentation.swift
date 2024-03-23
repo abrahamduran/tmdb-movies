@@ -35,10 +35,7 @@ struct MovieDetailsPresentation: Identifiable, Equatable {
         }
 
         var isEmpty: Bool {
-            guard case .empty(let string) = self else {
-                return false
-            }
-
+            guard case .empty = self else { return false }
             return true
         }
     }
