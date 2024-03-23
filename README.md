@@ -18,7 +18,7 @@ This project is an iOS app that interfaces with The Movie Database (TMDb) API to
 To run the project, you need to supply your own API key from TMDb. This key should be added to the `Info.plist` file under the `TMDBApiKey` key. Follow these steps:
 
 1. Obtain an API key from The Movie Database (TMDb) website.
-2. Open your project's `Info.plist` file in Xcode.
+2. Open the project's `Info.plist` file in Xcode.
 3. Add a new entry with the key `TMDBApiKey` and paste your API key as the value.
 
 ## Image Loading and Configuration
