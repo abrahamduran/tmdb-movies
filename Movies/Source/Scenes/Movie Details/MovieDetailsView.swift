@@ -71,9 +71,11 @@ struct MovieDetailsView: View {
                 Text(details.title)
                     .font(.title3.bold())
 
-                Text("(\(details.releaseYear))")
-                    .font(.title3)
-                    .foregroundStyle(.secondary)
+                if details.releaseYear.isEmpty == false {
+                    Text("(\(details.releaseYear))")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                }
             }
             .padding(.horizontal)
         }
@@ -92,33 +94,27 @@ struct MovieDetailsView: View {
                     .fixedSize(horizontal: false, vertical: true)
 
                 LazyVGrid(columns: overviewLayout, spacing: 8) {
-                    VStack(alignment: .leading) {
-                        Text("Release Date")
-                            .font(.headline)
-                        Text(details.releaseDate)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Duration")
-                            .font(.headline)
-                        Text(details.runtime)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Budget")
-                            .font(.headline)
-                        Text(details.budget)
-                    }
-                    VStack(alignment: .leading) {
-                        Text("Revenue")
-                            .font(.headline)
-                        Text(details.revenue)
+                    ForEach(details.generalInformation, id: \.title) { data in
+                        VStack(alignment: .leading) {
+                            Text(data.title)
+                                .font(.headline)
+                            Text(data.information.value)
+                                .foregroundStyle(data.information.isEmpty ? .secondary : .primary)
+                        }
                     }
                 }
 
                 VStack(alignment: .leading) {
                     Text("Genres")
                         .font(.headline)
-                    Text(details.genres)
-                        .fixedSize(horizontal: false, vertical: true)
+
+                    if details.genres.isEmpty {
+                        Text("No genres")
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text(details.genres)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
             }
             .padding([.top, .horizontal])
