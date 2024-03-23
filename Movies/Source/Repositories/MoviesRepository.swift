@@ -7,21 +7,35 @@
 
 import Foundation
 
-//protocol MoviesFetcher {
-//    func get() async throws -> [Cat]
-//    func get(byIdentifier: String) async throws -> Cat
-//}
-//
-//protocol MoviesStore: MoviesFetcher {
-//    func save(_ cat: Cat) async throws
-//}
-//
-//enum CatRepositoryError: Error {
-//    case notFound, notSaved
-//}
+protocol MoviesRepository {
+    func fetchPopularMovies(page: Int) async throws -> [Movie]
+    func fetchMovieDetails(id: Int) async throws -> MovieDetails
+}
 
-final class MoviesRepository {
-    private let tmdbAPI: TMDBAPI
+final class TMDBMoviesRepository: MoviesRepository {
+    private let api: APIProvider
+    private let cache: CacheProvider
+    private var posterBasePath: String {
+        guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBPosterPath") as? String else {
+            assertionFailure("TMDBPosterPath not found in Info.plist")
+            return "https://image.tmdb.org/t/p/w500"
+        }
+        return basePath
+    }
+    private var profileBasePath: String {
+        guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBProfilePath") as? String else {
+            assertionFailure("TMDBProfilePath not found in Info.plist")
+            return "https://image.tmdb.org/t/p/h632"
+        }
+        return basePath
+    }
+    private var backdropBasePath: String {
+        guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBBackdropPath") as? String else {
+            assertionFailure("TMDBBackdropPath not found in Info.plist")
+            return "https://image.tmdb.org/t/p/w1280"
+        }
+        return basePath
+    }
     private var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -29,8 +43,9 @@ final class MoviesRepository {
         return decoder
     }
 
-    init(tmdbAPI: TMDBAPI = TMDBAPI()) {
-        self.tmdbAPI = tmdbAPI
+    init(api: APIProvider = TMDBAPI(), cache: CacheProvider = UserDefaultsCacheProvider()) {
+        self.api = api
+        self.cache = cache
     }
 
     func fetchPopularMovies(page: Int) async throws -> [Movie] {
@@ -39,9 +54,12 @@ final class MoviesRepository {
         }
 
         let parameters = [URLQueryItem(name: "page", value: String(page))]
-        let data = try await tmdbAPI.fetch(from: url, parameters: parameters)
+        let data = try await api.fetch(from: url, parameters: parameters)
         let response = try decoder.decode(MoviesPageResponse.self, from: data)
-        return response.results
+        let result = response.results.map { Movie(id: $0.id, title: $0.title, posterPath: posterBasePath + $0.posterPath) }
+        cacheResponse(result, forKey: .popularMovies(page: page))
+
+        return result
     }
 
     func fetchMovieDetails(id: Int) async throws -> MovieDetails {
@@ -49,8 +67,34 @@ final class MoviesRepository {
             throw URLError(.badURL)
         }
         let parameters = [URLQueryItem(name: "append_to_response", value: "credits,recommendations")]
-        let detailsData = try await tmdbAPI.fetch(from: url, parameters: parameters)
-        let response = try decoder.decode(MovieDetailsResponse.self, from: detailsData)
-        return .init(response: response)
+        let data = try await api.fetch(from: url, parameters: parameters)
+        let response = try decoder.decode(MovieDetailsResponse.self, from: data)
+        let result = MovieDetails(response: response, posterBasePath: posterBasePath, profileBasePath: profileBasePath, backdropBasePath: backdropBasePath)
+        cacheResponse(result, forKey: .movieDetails(id: id))
+
+        return result
+    }
+
+    private func cacheResponse<T: Encodable>(_ model: T, forKey key: CacheKey) {
+        guard let data = try? JSONEncoder().encode(model) else { return }
+        cache.cacheData(data, forKey: key)
+    }
+}
+
+final class CacheMoviesRepository: MoviesRepository {
+    private let cache: CacheProvider
+
+    init(cache: CacheProvider = UserDefaultsCacheProvider()) {
+        self.cache = cache
+    }
+
+    func fetchPopularMovies(page: Int) async throws -> [Movie] {
+        let data = try cache.fetchCachedData(forKey: .popularMovies(page: page))
+        return try JSONDecoder().decode([Movie].self, from: data)
+    }
+
+    func fetchMovieDetails(id: Int) async throws -> MovieDetails {
+        let data = try cache.fetchCachedData(forKey: .movieDetails(id: id))
+        return try JSONDecoder().decode(MovieDetails.self, from: data)
     }
 }

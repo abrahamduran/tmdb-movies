@@ -28,7 +28,7 @@ struct MovieDetailsResponse: Decodable {
 }
 
 extension MovieDetails {
-    init(response: MovieDetailsResponse) {
+    init(response: MovieDetailsResponse, posterBasePath: String, profileBasePath: String, backdropBasePath: String) {
         self.id = response.id
         self.title = response.title
         self.releaseDate = response.releaseDate
@@ -36,11 +36,19 @@ extension MovieDetails {
         self.budget = response.budget
         self.revenue = response.revenue
         self.overview = response.overview
-        self.posterPath = response.posterPath
-        self.backdropPath = response.backdropPath
+        self.posterPath = posterBasePath + response.posterPath
+        self.backdropPath = backdropBasePath + response.backdropPath
         self.voteAverage = response.voteAverage
-        self.cast = response.credits.cast
         self.genres = response.genres
         self.recommendations = response.recommendations.results
+            .map { .init(id: $0.id, title: $0.title, posterPath: posterBasePath + $0.posterPath) }
+        self.cast = response.credits.cast
+            .map {
+                var profilePath: String?
+                if let path = $0.profilePath {
+                    profilePath = profileBasePath + path
+                }
+                return .init(id: $0.id, name: $0.name, character: $0.character, profilePath: profilePath)
+            }
     }
 }

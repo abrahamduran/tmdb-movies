@@ -28,6 +28,9 @@ struct MovieDetailsView: View {
         .task {
             await viewModel.fetchDetails(for: movie)
         }
+        .refreshable {
+            await viewModel.refreshDetails(for: movie)
+        }
     }
 
     private var loadingView: some View {
@@ -37,7 +40,7 @@ struct MovieDetailsView: View {
     }
 
     private var errorView: some View {
-        ErrorView(message: "An error has ocurred\nPull to refresh to try again")
+        ErrorView(message: "An error has ocurred\n\(viewModel.error?.recoverySuggestion ?? "Pull to refresh to try again")")
             .padding()
     }
 
@@ -129,16 +132,23 @@ struct MovieDetailsView: View {
 
                     Spacer()
 
-                    NavigationLink("View All") {
-                        ScrollView {
-                            CastGridView(cast: details.cast)
-                                .padding()
+                    if details.cast.isEmpty == false {
+                        NavigationLink("View All") {
+                            ScrollView {
+                                CastGridView(cast: details.cast)
+                                    .padding()
+                            }
+                            .navigationTitle("Cast")
                         }
-                        .navigationTitle("Cast")
                     }
                 }
 
-                CastGridView(cast: Array(details.cast.prefix(3)))
+                if details.cast.isEmpty {
+                    Text("No cast information available at the moment. Please check later.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    CastGridView(cast: Array(details.cast.prefix(3)))
+                }
             }
             .padding([.top, .horizontal])
         }
@@ -151,21 +161,28 @@ struct MovieDetailsView: View {
 
                     Spacer()
 
-                    NavigationLink("View All") {
-                        ScrollView {
-                            MoviesGridView(movies: details.recommendations) { _ in }
-                                .padding(.horizontal)
+                    if details.recommendations.isEmpty == false {
+                        NavigationLink("View All") {
+                            ScrollView {
+                                MoviesGridView(movies: details.recommendations) { _ in }
+                                    .padding(.horizontal)
+                            }
+                            .navigationTitle("Recommendations")
                         }
-                        .navigationTitle("Recommendations")
                     }
                 }
 
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(details.recommendations) { movie in
-                            NavigationLink(destination: MovieDetailsView(movie: movie)) {
-                                MovieCell(posterPath: movie.posterPath)
-                                    .frame(maxHeight: 250)
+                if details.recommendations.isEmpty {
+                    Text("No recommendations available at the moment. Please check later.")
+                        .foregroundStyle(.secondary)
+                } else {
+                    ScrollView(.horizontal) {
+                        LazyHStack {
+                            ForEach(details.recommendations) { movie in
+                                NavigationLink(destination: MovieDetailsView(movie: movie)) {
+                                    MovieCell(posterPath: movie.posterPath)
+                                        .frame(maxHeight: 250)
+                                }
                             }
                         }
                     }
@@ -189,7 +206,7 @@ struct MovieDetailsView: View {
 
 #Preview {
     NavigationStack {
-        MovieDetailsView(movie: .init(id: 763215, title: "Damsel", posterPath: ""))
-//        MovieDetailsView(movie: .init(id: 1011985, title: "Kung Fu Panda 4", posterPath: ""))
+//        MovieDetailsView(movie: .init(id: 763215, title: "Damsel", posterPath: ""))
+        MovieDetailsView(movie: .init(id: 1011985, title: "Kung Fu Panda 4", posterPath: ""))
     }
 }

@@ -49,7 +49,7 @@ struct PopularMoviesView: View {
     }
 
     private var errorView: some View {
-        ErrorView(message: "An error has ocurred\nPull to refresh to try again")
+        ErrorView(message: "An error has ocurred\n\(viewModel.error?.recoverySuggestion ?? "Pull to refresh to try again")")
             .padding()
     }
 }

@@ -9,17 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct BackdropView: View {
-    private var basePath: String {
-        guard let basePath = Bundle.main.object(forInfoDictionaryKey: "TMDBBackdropPath") as? String else {
-            assertionFailure("TMDBBackdropPath not found in Info.plist")
-            return "https://image.tmdb.org/t/p/w1280"
-        }
-        return basePath
-    }
     let backdropPath: String
     
     var body: some View {
-        KFImage(URL(string: "\(basePath)\(backdropPath)"))
+        KFImage(URL(string: backdropPath))
             .placeholder {
                 ProgressView()
             }

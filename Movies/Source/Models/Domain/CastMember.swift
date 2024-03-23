@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CastMember: Identifiable, Decodable, Equatable {
+struct CastMember: Identifiable, Codable, Equatable {
     let id: Int
     let name: String
     let character: String

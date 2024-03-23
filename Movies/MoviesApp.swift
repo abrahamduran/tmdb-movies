@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import Kingfisher
 @main
 struct MoviesApp: App {
     var body: some Scene {
