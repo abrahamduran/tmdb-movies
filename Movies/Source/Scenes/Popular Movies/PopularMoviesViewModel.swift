@@ -32,7 +32,6 @@ final class PopularMoviesViewModel: ObservableObject {
 
         // Fetch the cached data for faster loads
         if let cachedMovies = try? await offlineCache.fetchPopularMovies(page: currentPage) {
-            print("Loading cached movies")
             content = .content(cachedMovies)
         }
 
@@ -70,7 +69,6 @@ final class PopularMoviesViewModel: ObservableObject {
 
         // Fetch content from the API
         do {
-            print("Fetching movies from API")
             newMovies = try await repository.fetchPopularMovies(page: currentPage)
         } catch URLError.notConnectedToInternet {
             appError = .noNetworkConnection
