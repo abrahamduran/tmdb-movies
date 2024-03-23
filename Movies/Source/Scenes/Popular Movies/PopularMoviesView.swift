@@ -28,6 +28,7 @@ struct PopularMoviesView: View {
                 errorView
             }
         }
+        .accessibilityIdentifier("PopularMoviesView")
         .navigationTitle("Popular Movies")
         .alert(isPresented: $viewModel.showErrorAlert, error: viewModel.error, actions: { _ in
             Button("OK") { }

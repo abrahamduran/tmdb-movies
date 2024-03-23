@@ -57,6 +57,16 @@ final class MovieDetailsViewModel: ObservableObject {
     }
 
     private func fetchMovieDetails(_ movie: Movie) async {
+#if DEBUG
+        if ProcessInfo.processInfo.environment["UI_TESTING_ERROR_STATE"] == "Movie-Details-1" {
+            // Simulate an error state
+            self.content = .error
+            return
+        } else if ProcessInfo.processInfo.environment["UI_TESTING_LOADING_STATE"] == "Movie-Details-1" {
+            // Simulate delay
+            try? await Task.sleep(for: .seconds(5))
+        }
+#endif
         var details: MovieDetails?
         var appError: AppError?
 

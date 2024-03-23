@@ -64,6 +64,17 @@ final class PopularMoviesViewModel: ObservableObject {
     }
 
     private func fetchPopularMovies() async {
+#if DEBUG
+        if ProcessInfo.processInfo.environment["UI_TESTING_ERROR_STATE"] == "Popular-Movies-1" {
+            // Simulate an error state
+            self.content = .error
+            return
+        } else if ProcessInfo.processInfo.environment["UI_TESTING_LOADING_STATE"] == "Popular-Movies-1" {
+            // Simulate loading state
+            self.content = .loading
+            return
+        }
+#endif
         var newMovies: [Movie]?
         var appError: AppError?
 

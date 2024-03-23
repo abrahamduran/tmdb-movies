@@ -14,6 +14,7 @@ struct MovieCell: View {
     var body: some View {
         image
             .cornerRadius(8)
+            .accessibilityIdentifier("MovieCell")
     }
 
     @ViewBuilder

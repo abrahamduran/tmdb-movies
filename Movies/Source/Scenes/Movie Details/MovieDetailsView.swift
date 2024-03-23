@@ -25,6 +25,7 @@ struct MovieDetailsView: View {
             }
         }
         .navigationTitle(movie.title)
+        .accessibilityIdentifier("MovieDetailsView")
         .task {
             await viewModel.fetchDetails(for: movie)
         }
@@ -135,7 +136,9 @@ struct MovieDetailsView: View {
                                     .padding()
                             }
                             .navigationTitle("Cast")
+                            .accessibilityIdentifier("CastView")
                         }
+                        .accessibilityIdentifier("DetailsView.Cast.ViewAll")
                     }
                 }
 
@@ -164,7 +167,9 @@ struct MovieDetailsView: View {
                                     .padding(.horizontal)
                             }
                             .navigationTitle("Recommendations")
+                            .accessibilityIdentifier("RecommendationsView")
                         }
+                        .accessibilityIdentifier("DetailsView.Recommendations.ViewAll")
                     }
                 }
 
@@ -196,6 +201,7 @@ struct MovieDetailsView: View {
                     .frame(width: posterWidth)
                     .padding()
             }
+            .accessibilityIdentifier("DetailsView.Header")
         }
     }
 }
