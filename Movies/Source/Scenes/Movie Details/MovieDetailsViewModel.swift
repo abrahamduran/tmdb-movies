@@ -23,6 +23,7 @@ final class MovieDetailsViewModel: ObservableObject {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 0
+        formatter.locale = Locale(identifier: "en_US") // TMDB does not localize currency
         return formatter
     }()
     private lazy var ratingFormatter: NumberFormatter = {

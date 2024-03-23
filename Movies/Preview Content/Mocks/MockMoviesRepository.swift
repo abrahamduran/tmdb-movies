@@ -10,6 +10,7 @@ import Foundation
 final class MockMoviesRepository: MoviesRepository {
     private(set) var requestedPage: Int = 0
     var movies: [Movie] = []
+    var movieDetails: MovieDetails?
     var shouldThrowError: Bool = false
     var errorToThrow: Error = URLError(.notConnectedToInternet)
 
@@ -22,6 +23,12 @@ final class MockMoviesRepository: MoviesRepository {
     }
 
     func fetchMovieDetails(id: Int) async throws -> MovieDetails {
-        fatalError("Not implemented")
+        if shouldThrowError {
+            throw errorToThrow
+        }
+        guard let details = movieDetails else {
+            throw AppError.failedRequest
+        }
+        return details
     }
 }

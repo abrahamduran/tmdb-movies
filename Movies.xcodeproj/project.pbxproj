@@ -40,6 +40,7 @@
 		17B7B9E42BAE6E0100BA170F /* PopularMoviesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */; };
 		17B7B9E62BAE6E6F00BA170F /* MockMoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */; };
 		17B7B9E82BAE87F600BA170F /* MovieDetailsPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E72BAE87F600BA170F /* MovieDetailsPresentation.swift */; };
+		17B7B9EC2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9EB2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesViewModelTests.swift; sourceTree = "<group>"; };
 		17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMoviesRepository.swift; sourceTree = "<group>"; };
 		17B7B9E72BAE87F600BA170F /* MovieDetailsPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsPresentation.swift; sourceTree = "<group>"; };
+		17B7B9EB2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			children = (
 				171612512BACAC800050561D /* MoviesTests.swift */,
 				17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */,
+				17B7B9EB2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift */,
 			);
 			path = MoviesTests;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				171612522BACAC800050561D /* MoviesTests.swift in Sources */,
+				17B7B9EC2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift in Sources */,
 				17B7B9E42BAE6E0100BA170F /* PopularMoviesViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
