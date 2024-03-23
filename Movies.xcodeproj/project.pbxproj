@@ -104,6 +104,7 @@
 		17B7B9F22BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBMoviesRepositoryTests.swift; sourceTree = "<group>"; };
 		17B7B9F52BAED3A700BA170F /* MovieDetailsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewTests.swift; sourceTree = "<group>"; };
 		17B7B9F72BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheMoviesRepositoryTests.swift; sourceTree = "<group>"; };
+		17B7B9FE2BAEEB2E00BA170F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 				1716123F2BACAC7F0050561D /* Movies */,
 				171612502BACAC800050561D /* MoviesTests */,
 				1716125A2BACAC800050561D /* MoviesUITests */,
+				17B7B9FE2BAEEB2E00BA170F /* README.md */,
 				1716123E2BACAC7F0050561D /* Products */,
 			);
 			sourceTree = "<group>";
