@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import Movies
 
 final class MockMoviesRepository: MoviesRepository {
     private(set) var requestedPage: Int = 0

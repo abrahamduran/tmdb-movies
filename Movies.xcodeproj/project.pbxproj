@@ -37,12 +37,14 @@
 		17247AB32BAE12C300C7C448 /* CastGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17247AB22BAE12C300C7C448 /* CastGridView.swift */; };
 		17247AB82BAE38B200C7C448 /* CacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17247AB72BAE38B200C7C448 /* CacheProvider.swift */; };
 		17B7B9E42BAE6E0100BA170F /* PopularMoviesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */; };
-		17B7B9E62BAE6E6F00BA170F /* MockMoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */; };
 		17B7B9E82BAE87F600BA170F /* MovieDetailsPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E72BAE87F600BA170F /* MovieDetailsPresentation.swift */; };
 		17B7B9EC2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9EB2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift */; };
-		17B7B9EE2BAEB4FD00BA170F /* MockAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9ED2BAEB4FD00BA170F /* MockAPIProvider.swift */; };
-		17B7B9F02BAEB51000BA170F /* MockCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9EF2BAEB51000BA170F /* MockCacheProvider.swift */; };
 		17B7B9F32BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9F22BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift */; };
+		17B7B9F62BAED3A700BA170F /* MovieDetailsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9F52BAED3A700BA170F /* MovieDetailsViewTests.swift */; };
+		17B7B9F82BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9F72BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift */; };
+		17B7B9F92BAEDBB600BA170F /* MockAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9ED2BAEB4FD00BA170F /* MockAPIProvider.swift */; };
+		17B7B9FA2BAEDBBB00BA170F /* MockCacheProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9EF2BAEB51000BA170F /* MockCacheProvider.swift */; };
+		17B7B9FB2BAEDBC000BA170F /* MockMoviesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,7 @@
 		17B7B9ED2BAEB4FD00BA170F /* MockAPIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIProvider.swift; sourceTree = "<group>"; };
 		17B7B9EF2BAEB51000BA170F /* MockCacheProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCacheProvider.swift; sourceTree = "<group>"; };
 		17B7B9F22BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBMoviesRepositoryTests.swift; sourceTree = "<group>"; };
+		17B7B9F72BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheMoviesRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,8 +177,10 @@
 		171612502BACAC800050561D /* MoviesTests */ = {
 			isa = PBXGroup;
 			children = (
-				17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */,
+				17B7B9F42BAED01C00BA170F /* Mocks */,
+				17B7B9F72BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift */,
 				17B7B9EB2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift */,
+				17B7B9E32BAE6E0100BA170F /* PopularMoviesViewModelTests.swift */,
 				17B7B9F22BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift */,
 			);
 			path = MoviesTests;
@@ -317,10 +322,9 @@
 		17247AA72BADEDC500C7C448 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				17B7B9F12BAEB53900BA170F /* Models */,
-				17B7B9ED2BAEB4FD00BA170F /* MockAPIProvider.swift */,
-				17B7B9EF2BAEB51000BA170F /* MockCacheProvider.swift */,
-				17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */,
+				17247AB02BAE0F3E00C7C448 /* CastMember+Mock.swift */,
+				17247AA82BADEDD000C7C448 /* Movie+Mock.swift */,
+				17247AAC2BADF3B500C7C448 /* MovieDetails+Mock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -333,14 +337,14 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
-		17B7B9F12BAEB53900BA170F /* Models */ = {
+		17B7B9F42BAED01C00BA170F /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				17247AB02BAE0F3E00C7C448 /* CastMember+Mock.swift */,
-				17247AA82BADEDD000C7C448 /* Movie+Mock.swift */,
-				17247AAC2BADF3B500C7C448 /* MovieDetails+Mock.swift */,
+				17B7B9ED2BAEB4FD00BA170F /* MockAPIProvider.swift */,
+				17B7B9EF2BAEB51000BA170F /* MockCacheProvider.swift */,
+				17B7B9E52BAE6E6F00BA170F /* MockMoviesRepository.swift */,
 			);
-			path = Models;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,7 +485,6 @@
 			files = (
 				17247AB12BAE0F3E00C7C448 /* CastMember+Mock.swift in Sources */,
 				17247AA92BADEDD000C7C448 /* Movie+Mock.swift in Sources */,
-				17B7B9EE2BAEB4FD00BA170F /* MockAPIProvider.swift in Sources */,
 				17247AA62BADED8700C7C448 /* MoviesGridView.swift in Sources */,
 				1716127C2BACAE9D0050561D /* MoviesRepository.swift in Sources */,
 				17247AAF2BAE0E7900C7C448 /* CastMemberCell.swift in Sources */,
@@ -497,12 +500,10 @@
 				17247AA22BADE15C00C7C448 /* MovieDetailsResponse.swift in Sources */,
 				171612412BACAC7F0050561D /* MoviesApp.swift in Sources */,
 				17247A982BADD8D200C7C448 /* MovieDetailsViewModel.swift in Sources */,
-				17B7B9E62BAE6E6F00BA170F /* MockMoviesRepository.swift in Sources */,
 				17247AB32BAE12C300C7C448 /* CastGridView.swift in Sources */,
 				17247A8C2BACFBB200C7C448 /* Movie.swift in Sources */,
 				17247A862BACDF7800C7C448 /* TMDBAPI.swift in Sources */,
 				17247AA02BADE06900C7C448 /* CastMember.swift in Sources */,
-				17B7B9F02BAEB51000BA170F /* MockCacheProvider.swift in Sources */,
 				17247AAB2BADF36100C7C448 /* BackdropView.swift in Sources */,
 				17B7B9E82BAE87F600BA170F /* MovieDetailsPresentation.swift in Sources */,
 				17247AB82BAE38B200C7C448 /* CacheProvider.swift in Sources */,
@@ -514,8 +515,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B7B9F92BAEDBB600BA170F /* MockAPIProvider.swift in Sources */,
 				17B7B9EC2BAEAB4700BA170F /* MovieDetailsViewModelTests.swift in Sources */,
+				17B7B9FB2BAEDBC000BA170F /* MockMoviesRepository.swift in Sources */,
 				17B7B9E42BAE6E0100BA170F /* PopularMoviesViewModelTests.swift in Sources */,
+				17B7B9FA2BAEDBBB00BA170F /* MockCacheProvider.swift in Sources */,
+				17B7B9F82BAEDB8500BA170F /* CacheMoviesRepositoryTests.swift in Sources */,
 				17B7B9F32BAEB6BF00BA170F /* TMDBMoviesRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

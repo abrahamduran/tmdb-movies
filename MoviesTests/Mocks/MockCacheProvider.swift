@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import Movies
 
 final class MockCacheProvider: CacheProvider {
     var cache: [String: Data] = [:]

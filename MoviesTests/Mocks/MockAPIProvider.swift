@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import Movies
 
 final class MockAPIProvider: APIProvider {
     var data: Data?
